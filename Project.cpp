@@ -8,6 +8,7 @@ using namespace std;
 #define DELAY_CONST 100000
 
 GameMechs* gameMechs;
+bool exitflag = 1;
 
 void Initialize(void);
 void GetInput(void);
@@ -67,7 +68,7 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
 }
 
 void LoopDelay(void)
