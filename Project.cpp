@@ -51,7 +51,7 @@ void Initialize(void)
 
 void GetInput(void)
 {
-   
+    //myGM->setInput();
 }
 
 void RunLogic(void)
@@ -63,12 +63,29 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-
     objPos playerPos = myPlayer->getPlayerPos();
-
+    for(int i=0;i<10;i++)
+    {
+        for(int j=0;j<20;j++)
+        {
+            if(i==0 || i==9 || j==0 || j==19)
+            {
+                MacUILib_printf("#"); 
+            }
+            else if(i == playerPos.pos->y && j == playerPos.pos->x)
+            {
+                MacUILib_printf("%c",playerPos.symbol); 
+            }
+            else
+            {
+                MacUILib_printf(" ");
+            }
+             
+        }
+        MacUILib_printf("\n");
+    }
     MacUILib_printf("Player[x,y] = [%d,%d], %c",
                     playerPos.pos->x, playerPos.pos->y,playerPos.symbol);
- 
 }
 
 void LoopDelay(void)
