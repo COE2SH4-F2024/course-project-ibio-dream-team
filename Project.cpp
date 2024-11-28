@@ -4,6 +4,7 @@
 
 #include "GameMechs.h"
 #include "Player.h"
+#include "Food.h" 
 
 using namespace std;
 
@@ -11,6 +12,7 @@ using namespace std;
 
 Player *myPlayer;
 GameMechs *myGM;
+Food *foodItem;
 
 
 void Initialize(void);
@@ -46,6 +48,7 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     myGM = new GameMechs();                 ///pointer objects defined
+    foodItem = new Food();
     myPlayer = new Player(myGM);
 }
 
@@ -58,6 +61,7 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    myGM->clearInput();
 }
 
 void DrawScreen(void)
