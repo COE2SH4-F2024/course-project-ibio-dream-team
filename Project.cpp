@@ -51,7 +51,11 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    //myGM->setInput();
+    if(MacUILib_hasChar())
+    {
+        myGM->setInput(MacUILib_getChar());
+
+    }
 }
 
 void RunLogic(void)
@@ -64,11 +68,11 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
     objPos playerPos = myPlayer->getPlayerPos();
-    for(int i=0;i<10;i++)
+    for(int i=0; i<myGM->getBoardSizeY(); i++)
     {
-        for(int j=0;j<20;j++)
+        for(int j=0; j<myGM->getBoardSizeX(); j++)
         {
-            if(i==0 || i==9 || j==0 || j==19)
+            if(i==0 || i==myGM->getBoardSizeY() - 1 || j==0 || j==myGM->getBoardSizeX() - 1)
             {
                 MacUILib_printf("#"); 
             }
