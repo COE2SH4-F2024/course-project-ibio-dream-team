@@ -1,9 +1,9 @@
 #include "objPos.h"
-#include <stdlib.h>
+#include <iostream>
 
 using namespace std;
 
-//CONSTRUCTOR
+
 objPos::objPos()
 {
     pos = new Pos;
@@ -12,7 +12,6 @@ objPos::objPos()
     symbol = 0; //NULL
 }
 
-//ADDITIONAL CONSTRUCTOR
 objPos::objPos(int xPos, int yPos, char sym)
 {
     pos = new Pos;
@@ -27,7 +26,7 @@ objPos::objPos(int xPos, int yPos, char sym)
 //DESTRUCTOR
 objPos::~objPos()
 {
-    delete[] pos;
+    delete pos;
 }
 
 //COPY CONSTRUCTOR
@@ -52,6 +51,7 @@ objPos& objPos::operator=(const objPos &thisPos)
         {
             delete pos;
         }
+        
         pos = new Pos;
         pos->x = thisPos.pos->x;
         pos->y = thisPos.pos->y;
@@ -62,10 +62,8 @@ objPos& objPos::operator=(const objPos &thisPos)
 }
 
 
+//Other member functions
 
-
-
-//OTHER MEMBER FUNCTIONS
 
 void objPos::setObjPos(objPos o)
 {

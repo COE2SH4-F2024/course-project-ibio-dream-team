@@ -14,8 +14,14 @@ GameMechs::GameMechs()
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
+    input = 0;
+    exitFlag = false;
+    loseFlag = false;
+    score = 0;
+
     boardSizeX = boardX;
     boardSizeY = boardY;
+
 }
 
 // do you need a destructor?
@@ -27,15 +33,25 @@ GameMechs::~GameMechs()
 bool GameMechs::getExitFlagStatus() const
 {
     return exitFlag;
-    return exitFlag;
 }
 
 bool GameMechs::getLoseFlagStatus() const
 {
     return loseFlag;
-    return loseFlag;
 }
     
+void GameMechs::collectAsyncInput()
+{
+    if (MacUILib_hasChar() == 1)
+    {
+        input = MacUILib_getChar();
+    }
+    
+    if(input == ' ')
+    {
+        exitFlag = 1;
+    } 
+}
 
 char GameMechs::getInput() //const  // becuase the CONST is here you can not alter anything
 {
@@ -55,12 +71,11 @@ void GameMechs::incrementScore()
 int GameMechs::getBoardSizeX() const
 {
     return boardSizeX;
-    return boardSizeX;
 }
 
 int GameMechs::getBoardSizeY() const
 {
-return boardSizeY;
+    return boardSizeY;
 }
 
 
@@ -71,17 +86,21 @@ void GameMechs::setExitTrue()
 
 void GameMechs::setLoseFlag()
 {
-    loseFlag = 1;
+    loseFlag = true;
 }
 
 void GameMechs::setInput(char this_input)
 {
+    if(MacUILib_hasChar())
+    {
+        this_input = MacUILib_getChar();
+    }
 
 }
 
 void GameMechs::clearInput()
 {
-
+    input = 0;
 }
 
 // More methods should be added here

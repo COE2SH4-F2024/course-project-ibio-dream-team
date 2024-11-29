@@ -23,9 +23,6 @@ void tearDown(bool result);
 int testReady = true;
 // ******************* //
 
-
-
-
 // Test Case 1 - Constructor Tester
 // - Will require you to implement getSize() and getElement() methods.
 void testConstructor()

@@ -31,11 +31,6 @@ void Player::updatePlayerDir()
 
     switch(input)
         {                      
-            //case ' ':  // exit
-            //    exitFlag = 1;
-            //    exit_message = 1;
-            //    break;
-
             case 'w':
                 if(myDir != DOWN)
                 {
@@ -72,23 +67,19 @@ void Player::movePlayer()
 {
     if(myDir == UP)
     {
-        playerPos.pos->y--;
-        //current_y--; 
+        playerPos.pos->y--; 
     }
     else if(myDir == DOWN)
     {
         playerPos.pos->y++;
-        //current_y++;  
     }
     else if(myDir == LEFT)
     {
         playerPos.pos->x--;
-        //current_x--; 
     }
     else if(myDir == RIGHT)
     {
-        playerPos.pos->x++;
-        //current_x++;   
+        playerPos.pos->x++;  
     }
 
     int boardWrapX = mainGameMechsRef->getBoardSizeX() - 1;
