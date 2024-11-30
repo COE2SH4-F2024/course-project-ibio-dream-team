@@ -1,25 +1,25 @@
-// #ifndef FOOD_H
-// #define FOOD_H
-// #include <cstdlib>
-// #include <time.h>
-// #include "objPos.h"
-// #include "objPosArrayList.h"
-// #include "GameMechs.h"
-// #include "Player.h"
-// #include "MacUILib.h"
+#ifndef FOOD_H
+#define FOOD_H
+#include <cstdlib>
+#include <time.h>
+#include "objPos.h"
+#include "objPosArrayList.h"
+#include "GameMechs.h"
+#include "Player.h"
+#include "MacUILib.h"
 
-// using namespace std;
+using namespace std;
 
-// class Food{
-//     private:
-//         objPos foodPos;
+class Food{
+    private:
+        objPos foodPos;
     
-//     public:
-//         Food();
-//         ~Food();
-//         void generateFood(GameMechs* gameMechsPtr, objPos blockOff);
-//         void getFoodPos(objPos &foodpos);
-// };
+    public:
+        Food();
+        ~Food();
+        void generateFood(GameMechs* gameMechsPtr, objPos blockOff);
+        objPos const getFoodPos();
+};
 
-// #endif
+#endif
 

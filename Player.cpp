@@ -27,9 +27,8 @@ objPos Player::getPlayerPos() const
 
 void Player::updatePlayerDir()
 {
-    char input = mainGameMechsRef->getInput();
 
-    switch(input)
+    switch(mainGameMechsRef->getInput())
         {                      
             case 'w':
                 if(myDir != DOWN)
@@ -85,20 +84,20 @@ void Player::movePlayer()
     int boardWrapX = mainGameMechsRef->getBoardSizeX() - 1;
     int boardWrapY = mainGameMechsRef->getBoardSizeY() - 1;
 
-    if( playerPos.pos->x == 0)
+    if( playerPos.pos->x <= 0)
     {
         playerPos.pos->x  += boardWrapX - 1;
     }
-    else if (playerPos.pos->x == boardWrapX)
+    else if (playerPos.pos->x >= boardWrapX)
     {
         playerPos.pos->x -= boardWrapX - 1;
     }
 
-    if(playerPos.pos->y  == 0)
+    if(playerPos.pos->y  <= 0)
     {
         playerPos.pos->y  += boardWrapY - 1;
     }
-    else if (playerPos.pos->y == boardWrapY)
+    else if (playerPos.pos->y >= boardWrapY)
     {
         playerPos.pos->y -= boardWrapY - 1;
     }  
