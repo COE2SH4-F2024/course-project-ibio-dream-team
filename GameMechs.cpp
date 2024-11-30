@@ -86,4 +86,31 @@ void GameMechs::clearInput()
     input = 0;
 }
 
+
+
 // More methods should be added here
+
+void GameMechs::collectAsyncInput()
+{
+    if (MacUILib_hasChar())
+    {
+        input = MacUILib_getChar();
+        // if(input == 27)
+        //     exitFlag == 1;
+        // if(myGM->getInput() == 27)
+        // {
+        //     myGM->setExitTrue();
+        // }
+    }
+
+
+    // if(input == ' ')
+    //     {
+    //         foodItem->generateFood(myGM,myPlayer->getPlayerPos());
+    //     }
+        // else if(myGM->getInput() == ' ')
+        // {
+        //     foodItem->generateFood(myGM, myPlayer->getPlayerPos());
+        // }
+    
+}

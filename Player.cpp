@@ -1,23 +1,29 @@
 #include "Player.h"
+#include "Food.h"
 #include "MacUILib.h"
 #include <iostream>
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
-    mainGameMechsRef = thisGMRef;
+    mainGameMechsRef = thisGMRef; 
+    mainFoodRef = thisFoodRef;
     myDir = STOP;
 
     playerPosList = new objPosArrayList();
-    objPos initSnake = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, 'o');
-    playerPosList->insertTail(initSnake);
+
+
+    objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*');
+    playerPosList-> insertHead(playerpos) ;  ////insertTail(playerpos);
     // more actions to be included
+// 
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
+    delete [] playerPosList;
     // no keyword "new" in constructor therefore no destructor for now
 }
 
@@ -29,81 +35,105 @@ objPosArrayList* Player::getPlayerPos() const
 
 void Player::updatePlayerDir()
 {
-
-    switch(mainGameMechsRef->getInput())
+    char input = mainGameMechsRef->getInput();
+    switch(input)
         {                      
             case 'w':
                 if(myDir != DOWN)
                 {
                     myDir = UP;
-                }
-                break;
+                    break;
+                }else
+                    break;
     
             case 's':
                 if(myDir != UP)
                 {
-                    myDir = DOWN;  
-                }
-                break;
+                    myDir = DOWN;
+                    break;  
+                }else
+                    break;
                 
             case 'a':
                 if(myDir != RIGHT)
                 {
-                    myDir = LEFT;  
-                }
-                break;
+                    myDir = LEFT;
+                    break;  
+                }else
+                    break;
 
             case 'd':
                 if(myDir!= LEFT)
                 {
-                    myDir = RIGHT;   
-                }
-                break;
+                    myDir = RIGHT;
+                    break;   
+                }else
+                    break;
+        
 
         }
-        // PPA3 input processing logic          
+        // PPA3 input processing logic 
 }
 
 void Player::movePlayer()
 {
+    objPos currentHead = objPos(playerPosList->getHeadElement());
+    objPos foodPosition = mainFoodRef->getFoodPos();
+
+    int currentHeadX= currentHead.pos->x;
+    int currentHeadY= currentHead.pos->y;
+
     if(myDir == UP)
     {
-        playerPos.pos->y-=2; 
+        currentHeadY--; 
     }
     else if(myDir == DOWN)
     {
-        playerPos.pos->y+=2;
+        currentHeadY++;
     }
     else if(myDir == LEFT)
     {
-        playerPos.pos->x-=2;
+        currentHeadX--;
     }
     else if(myDir == RIGHT)
     {
-        playerPos.pos->x+=2;  
+        currentHeadX++;  
     }
 
     int boardWrapX = mainGameMechsRef->getBoardSizeX() - 1;
     int boardWrapY = mainGameMechsRef->getBoardSizeY() - 1;
 
-    if( playerPos.pos->x <= 0)
+    if( currentHeadX <= 0)
     {
-        playerPos.pos->x  += boardWrapX - 1;
+        currentHeadX  += boardWrapX - 1;
     }
-    else if (playerPos.pos->x >= boardWrapX)
+    else if (currentHead.pos->x >= boardWrapX)
     {
-        playerPos.pos->x -= boardWrapX - 1;
+        currentHeadX -= boardWrapX - 1;
     }
 
-    if(playerPos.pos->y  <= 0)
+    if(currentHeadY  <= 0)
     {
-        playerPos.pos->y  += boardWrapY - 1;
+        currentHeadY  += boardWrapY - 1;
     }
-    else if (playerPos.pos->y >= boardWrapY)
+    else if (currentHeadY >= boardWrapY)
     {
-        playerPos.pos->y -= boardWrapY - 1;
+        currentHeadY -= boardWrapY - 1;
     }  
     // PPA3 Finite State Machine logic
+
+
+    //New head position
+    objPos newHead(currentHeadX,currentHeadY,'*');
+    playerPosList->insertHead(newHead);
+    if(!foodPosition.isPosEqual(&newHead))
+    {
+        playerPosList->removeTail();
+    }
+    else
+    {
+        mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
+    }
 }
 
 // More methods to be added

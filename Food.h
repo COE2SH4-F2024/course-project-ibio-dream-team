@@ -17,7 +17,7 @@ class Food{
     public:
         Food();
         ~Food();
-        void generateFood(GameMechs* gameMechsPtr, objPos blockOff);
+        void generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff);
         objPos const getFoodPos();
 };
 
