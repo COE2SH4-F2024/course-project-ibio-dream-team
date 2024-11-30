@@ -6,16 +6,15 @@
 using namespace std;
 
 Food::Food(){
-    foodPos.x = 0;
-    foodPos.y = 0;
-    foodPos.symbol = 'o'; // Default symbol
+    foodPos.symbol = 'o';
+    foodPos.setObjPos(0,0, foodPos.symbol);
 }
 
 Food::~Food(){
 
 }
 
-void Food::generateFood(GameMechs* gameMechsPtr, objPos blockOff)
+void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)
 {
     srand(static_cast<unsigned int>(time(0)));
     bool valid = false;
@@ -24,13 +23,15 @@ void Food::generateFood(GameMechs* gameMechsPtr, objPos blockOff)
 
     while(!valid){
         valid = true;
-        if(foodX == blockOff.pos -> x && foodY == blockOff.pos -> y){
-                valid = false;
-                foodX = rand() % ((gameMechsPtr->getBoardSizeX()) - 2) + 1;
-                foodY = rand() % ((gameMechsPtr->getBoardSizeY()) - 2) + 1;
-                
-        }
-    } 
+        for(int i = 0; i < blockOff->getSize(); i++){
+            objPos snakePos = blockOff->getElement(i);
+            if(foodX == snakePos.pos -> x && foodY == snakePos.pos -> y){
+                    valid = false;
+                    foodX = rand() % ((gameMechsPtr->getBoardSizeX()) - 2) + 1;
+                    foodY = rand() % ((gameMechsPtr->getBoardSizeY()) - 2) + 1;
+                }        
+            }
+        } 
     foodPos.setObjPos(foodX,foodY,'o');
 }
 

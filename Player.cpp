@@ -9,8 +9,8 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     playerPosList = new objPosArrayList();
-    objPos initSnake = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, 'o');
-    playerPosList->insertTail(initSnake);
+    objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, 'o');
+    playerPosList->insertTail(playerpos);
     // more actions to be included
 }
 
@@ -36,29 +36,33 @@ void Player::updatePlayerDir()
                 if(myDir != DOWN)
                 {
                     myDir = UP;
-                }
-                break;
+                    break;
+                }else
+                    break;
     
             case 's':
                 if(myDir != UP)
                 {
-                    myDir = DOWN;  
-                }
-                break;
+                    myDir = DOWN;
+                    break;  
+                }else
+                    break;
                 
             case 'a':
                 if(myDir != RIGHT)
                 {
-                    myDir = LEFT;  
-                }
-                break;
+                    myDir = LEFT;
+                    break;  
+                }else
+                    break;
 
             case 'd':
                 if(myDir!= LEFT)
                 {
-                    myDir = RIGHT;   
-                }
-                break;
+                    myDir = RIGHT;
+                    break;   
+                }else
+                    break;
 
         }
         // PPA3 input processing logic          
@@ -66,42 +70,43 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
+    objPos currentHead = playerPosList->getHeadElement();
     if(myDir == UP)
     {
-        playerPos.pos->y-=2; 
+        currentHead.pos->y-=2; 
     }
     else if(myDir == DOWN)
     {
-        playerPos.pos->y+=2;
+        currentHead.pos->y+=2;
     }
     else if(myDir == LEFT)
     {
-        playerPos.pos->x-=2;
+        currentHead.pos->x-=2;
     }
     else if(myDir == RIGHT)
     {
-        playerPos.pos->x+=2;  
+        currentHead.pos->x+=2;  
     }
 
     int boardWrapX = mainGameMechsRef->getBoardSizeX() - 1;
     int boardWrapY = mainGameMechsRef->getBoardSizeY() - 1;
 
-    if( playerPos.pos->x <= 0)
+    if( currentHead.pos->x <= 0)
     {
-        playerPos.pos->x  += boardWrapX - 1;
+        currentHead.pos->x  += boardWrapX - 1;
     }
-    else if (playerPos.pos->x >= boardWrapX)
+    else if (currentHead.pos->x >= boardWrapX)
     {
-        playerPos.pos->x -= boardWrapX - 1;
+        currentHead.pos->x -= boardWrapX - 1;
     }
 
-    if(playerPos.pos->y  <= 0)
+    if(currentHead.pos->y  <= 0)
     {
-        playerPos.pos->y  += boardWrapY - 1;
+        currentHead.pos->y  += boardWrapY - 1;
     }
-    else if (playerPos.pos->y >= boardWrapY)
+    else if (currentHead.pos->y >= boardWrapY)
     {
-        playerPos.pos->y -= boardWrapY - 1;
+        currentHead.pos->y -= boardWrapY - 1;
     }  
     // PPA3 Finite State Machine logic
 }
