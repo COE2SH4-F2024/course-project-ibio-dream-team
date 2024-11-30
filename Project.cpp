@@ -133,6 +133,17 @@ void DrawScreen(void)
     MacUILib_printf("Score: %d\n", myPlayer->getScore());
     MacUILib_printf("Player Head Position[x,y] = [%d,%d], %c",
                     myPlayer->getPlayerPos()->getHeadElement().pos->x, myPlayer->getPlayerPos()->getHeadElement().pos->y, '*');
+
+    if(myGM->getExitFlagStatus())
+    {
+        MacUILib_printf("\nYOU ARE A QUITTER!!! Game Exited\n");
+    }
+
+    if (myGM->getLoseFlagStatus())
+    {
+        MacUILib_printf("\nOH NO! Unfortunately you have LOST! Please play again.\n");
+    }
+
                     
 }
 
@@ -143,7 +154,6 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();  
 
     delete myPlayer;
     delete myGM;

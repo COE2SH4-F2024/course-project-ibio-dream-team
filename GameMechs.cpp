@@ -67,7 +67,7 @@ int GameMechs::getBoardSizeY() const
 
 void GameMechs::setExitTrue()
 {
-    exitFlag = 1;
+    exitFlag = true;
 }
 
 void GameMechs::setLoseFlag()

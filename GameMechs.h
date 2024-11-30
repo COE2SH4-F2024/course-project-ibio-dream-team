@@ -18,7 +18,7 @@ class GameMechs
         int score;
 
         int boardSizeX;
-        int boardSizeY;
+        int boardSizeY; 
 
        // objPos food;
 

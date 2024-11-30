@@ -125,6 +125,19 @@ void Player::movePlayer()
 
     //New head position
     objPos newHead(currentHeadX,currentHeadY,'*');
+    objPos snakeEnd;
+
+    for(int i = 1; i < playerPosList->getSize(); i++)
+    {
+        snakeEnd = playerPosList->getElement(i);
+        if(newHead.pos->x == snakeEnd.pos->x && newHead.pos->y == snakeEnd.pos->y)
+        {
+            mainGameMechsRef->setExitTrue();
+            mainGameMechsRef->setLoseFlag();
+            return;
+        }
+    }
+
     playerPosList->insertHead(newHead);
     if(!foodPosition.isPosEqual(&newHead))
     {
@@ -134,6 +147,8 @@ void Player::movePlayer()
     {
         mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
     }
+
+    
 }
 
 // More methods to be added
