@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "MacUILib.h"
+#include <iostream>
 
 
 Player::Player(GameMechs* thisGMRef)
@@ -6,9 +8,9 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    playerPos.pos->x = mainGameMechsRef->getBoardSizeX()/2; //center of board thats why /2
-    playerPos.pos->y = mainGameMechsRef->getBoardSizeY()/2;
-    playerPos.symbol = '@';
+    playerPosList = new objPosArrayList();
+    objPos initSnake = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, 'o');
+    playerPosList->insertTail(initSnake);
     // more actions to be included
 }
 
@@ -19,9 +21,9 @@ Player::~Player()
     // no keyword "new" in constructor therefore no destructor for now
 }
 
-objPos Player::getPlayerPos() const
+objPosArrayList* Player::getPlayerPos() const
 {
-    return playerPos;  
+    return playerPosList;
     // return the reference to the playerPos arrray list
 }
 
@@ -66,19 +68,19 @@ void Player::movePlayer()
 {
     if(myDir == UP)
     {
-        playerPos.pos->y--; 
+        playerPos.pos->y-=2; 
     }
     else if(myDir == DOWN)
     {
-        playerPos.pos->y++;
+        playerPos.pos->y+=2;
     }
     else if(myDir == LEFT)
     {
-        playerPos.pos->x--;
+        playerPos.pos->x-=2;
     }
     else if(myDir == RIGHT)
     {
-        playerPos.pos->x++;  
+        playerPos.pos->x+=2;  
     }
 
     int boardWrapX = mainGameMechsRef->getBoardSizeX() - 1;

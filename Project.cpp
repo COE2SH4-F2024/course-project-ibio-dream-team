@@ -47,31 +47,30 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myGM = new GameMechs(30,15);                 ///pointer objects defined
+    myGM = new GameMechs(30,15);
     foodItem = new Food();
     myPlayer = new Player(myGM);
     
-    objPos playerPosition{-100,-100, '^'};
-    foodItem->generateFood(myGM, playerPosition);
-
+    foodItem->generateFood(myGM, myPlayer->getPlayerPos());
 }
 
 void GetInput(void)
 {
-    if(MacUILib_hasChar()){
-        myGM->setInput(MacUILib_getChar());
-        if(myGM->getInput()==' '){
+    if (MacUILib_hasChar()){
+        myGM -> setInput(MacUILib_getChar());
+        if(myGM->getInput() == 27)
             myGM->setExitTrue();
-        } 
-    }else{
-        myGM -> setInput(0);
-    }
+        else if(myGM->getInput() == ' ')
+            foodItem->generateFood(myGM, myPlayer->getPlayerPos());
+    }else
+        myGM->clearInput();
 }
 
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    myGM->clearInput();
 }
 
 void DrawScreen(void)
@@ -80,10 +79,6 @@ void DrawScreen(void)
 
     objPos playerPos = myPlayer->getPlayerPos();
     objPos FoodPos = foodItem->getFoodPos();;
-    // foodItem->getFoodPos(); // Get food position once before drawing
-    std::cout << "Player position: [" << playerPos.pos->x << ", " << playerPos.pos->y << "]\n";
-    std::cout << "Food position: [" << FoodPos.pos -> x << ", " << FoodPos.pos -> y << "]\n";
-    std::cout << "Board size: [" << myGM->getBoardSizeX() << " x " << myGM->getBoardSizeY() << "]\n";
 
     for(int i = 0; i < myGM->getBoardSizeY(); i++)
     {
@@ -99,10 +94,8 @@ void DrawScreen(void)
                 MacUILib_printf("%c", playerPos.symbol);
             
             else if (j == FoodPos.pos->x && i == FoodPos.pos->y) {
-                // Draw food
                 MacUILib_printf("%c", FoodPos.symbol);
             } else {
-                // Draw empty space
                 MacUILib_printf(" ");
             }
         }

@@ -8,8 +8,8 @@ GameMechs::GameMechs()
     loseFlag = false;
     score = 0;
 
-    boardSizeX = 20;
-    boardSizeY = 10; 
+    boardSizeX = 30;
+    boardSizeY = 15; 
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -39,19 +39,6 @@ bool GameMechs::getLoseFlagStatus() const
 {
     return loseFlag;
 }
-    
-void GameMechs::collectAsyncInput()
-{
-    if (MacUILib_hasChar())
-    {
-        input = MacUILib_getChar();
-    }
-    
-    if(input == ' ')
-    {
-        exitFlag = 1;
-    } 
-}
 
 char GameMechs::getInput() //const  // becuase the CONST is here you can not alter anything
 {
@@ -77,7 +64,6 @@ int GameMechs::getBoardSizeY() const
 {
     return boardSizeY;
 }
-
 
 void GameMechs::setExitTrue()
 {
