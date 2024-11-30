@@ -12,7 +12,7 @@ using namespace std;
 
 Player *myPlayer;
 GameMechs *myGM;
-//Food *foodItem;
+Food *foodItem;
 
 
 void Initialize(void);
@@ -48,7 +48,7 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     myGM = new GameMechs();                 ///pointer objects defined
-    //foodItem = new Food();
+    foodItem = new Food();
     myPlayer = new Player(myGM);
 }
 
@@ -72,10 +72,10 @@ void DrawScreen(void)
     {
         for(int j = 0; j < myGM->getBoardSizeX(); j++)
         {
-            if(i == 0 || i == 9)
+            if(i == 0 || i == myGM->getBoardSizeY() - 1)
                 MacUILib_printf("=");
 
-            else if(j == 0 || j == 19)
+            else if(j == 0 || j == myGM->getBoardSizeX() - 1)
                 MacUILib_printf("|");
 
             else if(j == playerPos.pos->x && i == playerPos.pos->y)
@@ -83,19 +83,19 @@ void DrawScreen(void)
             else{
                 MacUILib_printf(" ");
             }
-        MacUILib_printf("\n");
         }
-
-        MacUILib_printf("Player[x,y] = [%d,%d], %c",
-                    playerPos.pos->x, playerPos.pos->y,playerPos.symbol);
+        MacUILib_printf("\n");
     }
+    MacUILib_printf("Player[x,y] = [%d,%d], %c",
+                    playerPos.pos->x, playerPos.pos->y,playerPos.symbol);
 }
+
+
 
 void LoopDelay(void)
 {
     MacUILib_Delay(DELAY_CONST); // 0.1s delay
 }
-
 
 void CleanUp(void)
 {
@@ -103,6 +103,7 @@ void CleanUp(void)
 
     delete myPlayer;
     delete myGM;
+    delete foodItem;
 
     MacUILib_uninit();
 }
