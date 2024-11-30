@@ -26,7 +26,7 @@ class Player
         void movePlayer();
 
         // More methods to be added here
-
+        int getScore() const;
     private:
         objPosArrayList* playerPosList; // Upgrade this in iteration 3.       
         enum Dir myDir;

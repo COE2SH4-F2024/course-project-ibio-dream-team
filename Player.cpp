@@ -137,3 +137,8 @@ void Player::movePlayer()
 }
 
 // More methods to be added
+
+int Player::getScore() const
+{
+    return playerPosList->getSize() - 1;
+}
