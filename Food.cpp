@@ -2,17 +2,35 @@
 #include "MacUILib.h"
 #include "GameMechs.h"
 
-Food::Food(){
+Food::Food()
+{
+    //foodBucket = new objPosArrayList();
     foodPos.symbol = 'o';
     foodPos.setObjPos(0,0, foodPos.symbol);
 }
 
-Food::~Food(){
-
+Food::~Food()
+{
+    //delete [] foodBucket;
 }
 
 void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)
 {
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     srand(static_cast<unsigned int>(time(0)));
     bool valid = false;

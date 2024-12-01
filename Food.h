@@ -1,5 +1,6 @@
 #ifndef FOOD_H
 #define FOOD_H
+
 #include <cstdlib>
 #include <time.h>
 #include "objPos.h"
@@ -13,6 +14,7 @@ using namespace std;
 class Food{
     private:
         objPos foodPos;
+        //objPosArrayList* foodBucket;
     
     public:
         Food();

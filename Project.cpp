@@ -154,7 +154,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-
+    //MacUILib_clearScreen();
     delete myPlayer;
     delete myGM;
     delete foodItem;
