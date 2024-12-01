@@ -129,7 +129,7 @@ void DrawScreen(void)
                                 printingHere = 1;
                             }
                         }
-                        
+
                         if(!printingHere){
                              MacUILib_printf(" ");
                         }
@@ -139,8 +139,8 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
     MacUILib_printf("Score: %d\n", myPlayer->getScore());
-    MacUILib_printf("Player Head Position[x,y] = [%d,%d], %c", myPlayer->getPlayerPos()->getHeadElement().pos->x, 
-                    myPlayer->getPlayerPos()->getHeadElement().pos->y, '*');
+    MacUILib_printf("Player Head Position[x,y] = [%d,%d]", myPlayer->getPlayerPos()->getHeadElement().pos->x, 
+                    myPlayer->getPlayerPos()->getHeadElement().pos->y);
 
     if(myGM->getExitFlagStatus())
     {

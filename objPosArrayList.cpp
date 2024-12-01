@@ -25,7 +25,6 @@ objPosArrayList::objPosArrayList(int bucketsize)
 objPosArrayList::~objPosArrayList()
 {
     delete[] aList;
-    delete aList;
 }
 
 int objPosArrayList::getSize() const
@@ -37,7 +36,7 @@ void objPosArrayList::insertHead(objPos thisPos)
 {
     if(listSize==arrayCapacity)
     {
-        MacUILib_printf("Warning! Array list full, no insertion allowed!\n");
+        MacUILib_printf("Error: Array list full, no insertion allowed!\n");
         return;
     }
 
@@ -55,7 +54,7 @@ void objPosArrayList::insertTail(objPos thisPos)
 {
     if(listSize==arrayCapacity)
     {
-        MacUILib_printf("Warning! Array list full, no insertion allowed!\n");
+        MacUILib_printf("Error: Array list full, no insertion allowed!\n");
         return;
     }
     aList[listSize] = thisPos;
@@ -67,11 +66,11 @@ void objPosArrayList::removeHead()
 
     if(listSize == 0)
     {
-         MacUILib_printf("Warning! No elements in list to remove!\n");
+         MacUILib_printf("Error: No elements in list to remove!\n");
         return;
     }
 
-    for(int i = 0; i<listSize-1;i++)
+    for(int i = 0; i < listSize-1;i++)
     {
         aList[i] = aList[i+1];
     }
@@ -83,7 +82,7 @@ void objPosArrayList::removeTail()
 {
     if(listSize == 0)
     {
-        MacUILib_printf("Warning! List is empty, no elements to remove \n");
+        MacUILib_printf("Error: List is empty, no elements to remove \n");
         return;
     }
 
@@ -121,13 +120,22 @@ objPos objPosArrayList::getElement(int index) const
     return aList[index];
 }
 
-objPos objPosArrayList::setElement(int index, objPos fooditem) const{
+objPos objPosArrayList::setElementAt(int index, objPos fooditem) const{
     if(index > listSize || index < 0){
-        MacUILib_printf("Index out of Bounds!\n");
+        MacUILib_printf("Error: Index out of Bounds!\n");
     }else{
         aList[index] = fooditem;
     }
 }
+
+void objPosArrayList::clearArray() {
+    // for(int i = 0; i < listSize; i++){
+    //     removeElementAt(i); // Remove elements from the beginning (or tail, depending on your design)
+    // }
+    listSize = 0;
+}
+
+
 // Paste your Tested implementation here.
 // Paste your Tested implementation here.
 // Paste your Tested implementation here.

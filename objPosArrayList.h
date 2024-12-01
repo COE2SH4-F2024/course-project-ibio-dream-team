@@ -26,7 +26,8 @@ class objPosArrayList
         objPos getHeadElement() const;
         objPos getTailElement() const;
         objPos getElement(int index) const;
-        objPos setElement(int index, objPos fooditem) const;
+        objPos setElementAt(int index, objPos fooditem) const;
+        void clearArray();
 };
 
 #endif

@@ -14,6 +14,7 @@ Food::~Food(){
 
 void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)
 {
+    foodBucket->clearArray(); //clear out previous food bucket
     int specialItems = 0;
     int foodX, foodY;
     char foodSymbol;
