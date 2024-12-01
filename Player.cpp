@@ -78,7 +78,7 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     objPos currentHead = objPos(playerPosList->getHeadElement());
-    objPos foodPosition = mainFoodRef->getFoodPos();
+    objPosArrayList* foodBuckPos = mainFoodRef->getFoodBucket();
 
     int currentHeadX= currentHead.pos->x;
     int currentHeadY= currentHead.pos->y;
@@ -139,13 +139,23 @@ void Player::movePlayer()
     }
 
     playerPosList->insertHead(newHead);
-    if(!foodPosition.isPosEqual(&newHead))
+    bool foodConsumed = false;
+
+    for(int i = 0; i < foodBuckPos->getSize(); i++ )
+    {
+        //playerPosList->insertHead(newHead);
+        if(foodBuckPos->getElement(i).isPosEqual(&newHead))
+        {
+            mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
+            foodConsumed = true;
+            break;
+        }
+    
+    }
+
+    if(!foodConsumed)
     {
         playerPosList->removeTail();
-    }
-    else
-    {
-        mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
     }
 
     

@@ -20,6 +20,7 @@ class Food{
         ~Food();
         objPos const getFoodPos();
         void generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff);
+        objPosArrayList* getFoodBucket();
 };
 
 #endif
