@@ -57,34 +57,11 @@ void Initialize(void)
 void GetInput(void)
 {
     myGM->collectAsyncInput();
-    // if(myGM->getInput()== ' ')
-    // {
-    //     foodItem->generateFood(myGM, myPlayer->getPlayerPos());
-    // }
     if(myGM->getInput() == 27)
     {
         myGM->setEarlyEnd();
         myGM->setExitTrue();
     }
-    
-    // if (MacUILib_hasChar() == 1)
-    // {
-    //     myGM -> setInput(MacUILib_getChar());
-    //     // if(myGM->getInput() == 27)
-    //     // {
-    //     //     myGM->setExitTrue();
-    //     // }
-    //     if(myGM->getInput() == ' ')
-    //     {
-    //         foodItem->generateFood(myGM,myPlayer->getPlayerPos());
-    //     }
-    //     // else if(myGM->getInput() == ' ')
-    //     // {
-    //     //     foodItem->generateFood(myGM, myPlayer->getPlayerPos());
-    //     // }
-    // }
-    // else
-    //     myGM->clearInput();
 }
 
 void RunLogic(void)
@@ -140,19 +117,12 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
     MacUILib_printf("Score: %d\n", myPlayer->getScore());
-    // MacUILib_printf("Player Head Position[x,y] = [%d,%d], %c", myPlayer->getPlayerPos()->getHeadElement().pos->x, 
-    //                 myPlayer->getPlayerPos()->getHeadElement().pos->y, '*');
 
     if(myGM->getEarlyEndStatus() == true)
-    {
         MacUILib_printf("\nYOU ARE A QUITTER! Game Exited\n");
-    }
 
     if (myGM->getLoseFlagStatus())
-    {
         MacUILib_printf("\nOH NO! Unfortunately you have LOST! Please try again.\n");
-    }
-
                     
 }
 

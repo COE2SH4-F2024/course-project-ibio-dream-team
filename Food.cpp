@@ -26,7 +26,7 @@ void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)
             valid = true;
             foodX = rand() % ((gameMechsPtr->getBoardSizeX()) - 2) + 1;
             foodY = rand() % ((gameMechsPtr->getBoardSizeY()) - 2) + 1;
-            foodSymbol = '+';
+            foodSymbol = '-';
 
             for(int i = 0; i < blockOff->getSize(); i++){
                 objPos snakePos = blockOff->getElement(i);
@@ -54,7 +54,7 @@ void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)
                 }
                        
             }
-            objPos specialFoods(foodX, foodY, '+');
+            objPos specialFoods(foodX, foodY, '-');
             foodBucket->insertTail(specialFoods);
             specialItems++;
     }

@@ -14,7 +14,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 
 
     objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*');
-    playerPosList-> insertHead(playerpos) ;  ////insertTail(playerpos);
+    playerPosList-> insertHead(playerpos) ;
     // more actions to be included
 // 
 }
@@ -146,21 +146,13 @@ void Player::movePlayer()
         //Check if each item is at the same position as the new inserted Head
         if(foodBuckPos->getElement(i).isPosEqual(&newHead))
         {
-            if(foodBuckPos->getElement(i).getSymbol() == '+')
+            if(foodBuckPos->getElement(i).getSymbol() == '-')
             {
-                for(int j = 0; j < 3; j++)
-                {
-                    playerPosList->insertTail(newHead);
+                if(playerPosList->getSize() > 1){
+                        playerPosList->removeTail();
+                        playerPosList->removeTail();
                 }
             }
-
-            // if(foodBuckPos->getElement(i).getSymbol() == '-')
-            // {
-            //     for(int j = 0; j < 10; j++)
-            //     {
-            //         mainGameMechsRef->incrementScore();
-            //     }
-            // }
 
             //Regenerate the Food Bucket in 5 new random spots on the board after collision.
             mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
@@ -184,5 +176,4 @@ void Player::movePlayer()
 int Player::getScore() const
 {
     return mainGameMechsRef->getScore();
-    //return playerPosList->getSize() - 1;
 }
