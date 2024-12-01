@@ -1,23 +1,29 @@
 #include "Player.h"
+#include "Food.h"
 #include "MacUILib.h"
 #include <iostream>
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
-    mainGameMechsRef = thisGMRef;
+    mainGameMechsRef = thisGMRef; 
+    mainFoodRef = thisFoodRef;
     myDir = STOP;
 
     playerPosList = new objPosArrayList();
-    objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
-    playerPosList->insertTail(playerpos);
+
+
+    objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*');
+    playerPosList-> insertHead(playerpos) ;  ////insertTail(playerpos);
     // more actions to be included
+// 
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
+    delete [] playerPosList;
     // no keyword "new" in constructor therefore no destructor for now
 }
 
@@ -29,8 +35,8 @@ objPosArrayList* Player::getPlayerPos() const
 
 void Player::updatePlayerDir()
 {
-
-    switch(mainGameMechsRef->getInput())
+    char input = mainGameMechsRef->getInput();
+    switch(input)
         {                      
             case 'w':
                 if(myDir != DOWN)
@@ -63,52 +69,91 @@ void Player::updatePlayerDir()
                     break;   
                 }else
                     break;
+        
 
         }
-        // PPA3 input processing logic          
+        // PPA3 input processing logic 
 }
 
 void Player::movePlayer()
 {
-    objPos currentHead = playerPosList->getHeadElement();
+    objPos currentHead = objPos(playerPosList->getHeadElement());
+    objPos foodPosition = mainFoodRef->getFoodPos();
+
+    int currentHeadX= currentHead.pos->x;
+    int currentHeadY= currentHead.pos->y;
+
     if(myDir == UP)
     {
-        currentHead.pos->y-=2; 
+        currentHeadY--; 
     }
     else if(myDir == DOWN)
     {
-        currentHead.pos->y+=2;
+        currentHeadY++;
     }
     else if(myDir == LEFT)
     {
-        currentHead.pos->x-=2;
+        currentHeadX--;
     }
     else if(myDir == RIGHT)
     {
-        currentHead.pos->x+=2;  
+        currentHeadX++;  
     }
 
     int boardWrapX = mainGameMechsRef->getBoardSizeX() - 1;
     int boardWrapY = mainGameMechsRef->getBoardSizeY() - 1;
 
-    if( currentHead.pos->x <= 0)
+    if( currentHeadX <= 0)
     {
-        currentHead.pos->x  += boardWrapX - 1;
+        currentHeadX  += boardWrapX - 1;
     }
     else if (currentHead.pos->x >= boardWrapX)
     {
-        currentHead.pos->x -= boardWrapX - 1;
+        currentHeadX -= boardWrapX - 1;
     }
 
-    if(currentHead.pos->y  <= 0)
+    if(currentHeadY  <= 0)
     {
-        currentHead.pos->y  += boardWrapY - 1;
+        currentHeadY  += boardWrapY - 1;
     }
-    else if (currentHead.pos->y >= boardWrapY)
+    else if (currentHeadY >= boardWrapY)
     {
-        currentHead.pos->y -= boardWrapY - 1;
+        currentHeadY -= boardWrapY - 1;
     }  
     // PPA3 Finite State Machine logic
+
+
+    //New head position
+    objPos newHead(currentHeadX,currentHeadY,'*');
+    objPos snakeEnd;
+
+    for(int i = 1; i < playerPosList->getSize(); i++)
+    {
+        snakeEnd = playerPosList->getElement(i);
+        if(newHead.pos->x == snakeEnd.pos->x && newHead.pos->y == snakeEnd.pos->y)
+        {
+            mainGameMechsRef->setExitTrue();
+            mainGameMechsRef->setLoseFlag();
+            return;
+        }
+    }
+
+    playerPosList->insertHead(newHead);
+    if(!foodPosition.isPosEqual(&newHead))
+    {
+        playerPosList->removeTail();
+    }
+    else
+    {
+        mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
+    }
+
+    
 }
 
 // More methods to be added
+
+int Player::getScore() const
+{
+    return playerPosList->getSize() - 1;
+}

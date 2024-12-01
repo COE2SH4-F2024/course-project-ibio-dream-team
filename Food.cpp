@@ -1,9 +1,6 @@
 #include "Food.h"
 #include "MacUILib.h"
 #include "GameMechs.h"
-#include <iostream>
-
-using namespace std;
 
 Food::Food(){
     foodPos.symbol = 'o';
@@ -16,6 +13,7 @@ Food::~Food(){
 
 void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)
 {
+
     srand(static_cast<unsigned int>(time(0)));
     bool valid = false;
     int foodX = rand() % ((gameMechsPtr->getBoardSizeX()) - 2) + 1;
@@ -34,7 +32,6 @@ void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)
         } 
     foodPos.setObjPos(foodX,foodY,'o');
 }
-
 
 objPos const Food::getFoodPos(){
     return foodPos;
