@@ -99,7 +99,7 @@ void DrawScreen(void)
     MacUILib_printf("           Welcome to the 2SH4 Snake Game!\n");
     MacUILib_printf("WASD to move, ESC to exit the game, get all the food items!\n");
 
-    objPos FoodPos = foodItem->getFoodPos();;
+    objPosArrayList* foodBucket = foodItem->getFoodBucket();;
     objPos snakebody;
     for(int y = 0; y < myGM->getBoardSizeY(); y++)
     {
@@ -112,22 +112,27 @@ void DrawScreen(void)
                 MacUILib_printf("|");
 
             else{
-                int onSnakeBody = 0; //flag to check
+                int printingHere = 0; //flag to check, changed name from onSnake to be used for foodBucket
                 for(int i = 0; i <  myPlayer->getPlayerPos()->getSize(); i++){
                     snakebody.setObjPos(myPlayer->getPlayerPos()->getElement(i));//objPos snakebody = myPlayer->getPlayerPos()->getElement(i);
                     if(x == snakebody.pos->x && y == snakebody.pos->y){
                         MacUILib_printf("%c", snakebody.symbol);
-                        onSnakeBody = 1; //this location is part of the snake's body
+                        printingHere = 1; //this location is part of the snake's body
                         break; //break since only one segment of the snake's body exists per one pair of x and y coordinates
                         }
                     }
 
-                    if (onSnakeBody == 0){ //meaning if this x and y pair is NOT on a location where snakebody sits
-                        if (x == FoodPos.pos->x && y == FoodPos.pos->y) {
-                            MacUILib_printf("%c", FoodPos.symbol);
+                    if (printingHere == 0){ //meaning if this x and y pair is NOT on a location where snakebody sits
+                        for(int i = 0; i < foodBucket->getSize(); i++){
+                            if (x == foodBucket->getElement(i).pos->x && y == foodBucket->getElement(i).pos->y) {
+                                MacUILib_printf("%c", foodBucket->getElement(i).symbol);
+                                printingHere = 1;
+                            }
                         }
-                        else
-                            MacUILib_printf(" ");
+                        
+                        if(!printingHere){
+                             MacUILib_printf(" ");
+                        }
                     }
                 }
         }
