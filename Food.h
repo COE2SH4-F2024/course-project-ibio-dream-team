@@ -13,7 +13,7 @@ using namespace std;
 class Food{
     private:
         objPos foodPos;
-        objPosArrayList* foodBucket;
+        objPosArrayList *foodBucket;
     
     public:
         Food();

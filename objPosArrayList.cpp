@@ -25,6 +25,7 @@ objPosArrayList::objPosArrayList(int bucketsize)
 objPosArrayList::~objPosArrayList()
 {
     delete[] aList;
+    delete aList;
 }
 
 int objPosArrayList::getSize() const
