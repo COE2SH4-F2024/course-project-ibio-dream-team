@@ -164,6 +164,7 @@ void Player::movePlayer()
 
             //Regenerate the Food Bucket in 5 new random spots on the board after collision.
             mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
+            mainGameMechsRef->incrementScore();
             foodConsumed = true;
             break;
         }
@@ -182,5 +183,6 @@ void Player::movePlayer()
 
 int Player::getScore() const
 {
-    return playerPosList->getSize() - 1;
+    return mainGameMechsRef->getScore();
+    //return playerPosList->getSize() - 1;
 }
