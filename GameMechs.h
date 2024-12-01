@@ -15,6 +15,7 @@ class GameMechs
         char input;
         bool exitFlag;
         bool loseFlag;
+        bool earlyEnd;
         int score;
 
         int boardSizeX;
@@ -44,6 +45,9 @@ class GameMechs
         
         // More methods should be added here
         void collectAsyncInput();
+        void setEarlyEnd();
+        bool getEarlyEndStatus();
+        
 };
 
 #endif

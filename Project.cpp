@@ -57,12 +57,13 @@ void Initialize(void)
 void GetInput(void)
 {
     myGM->collectAsyncInput();
-    if(myGM->getInput()== ' ')
-    {
-        foodItem->generateFood(myGM, myPlayer->getPlayerPos());
-    }
+    // if(myGM->getInput()== ' ')
+    // {
+    //     foodItem->generateFood(myGM, myPlayer->getPlayerPos());
+    // }
     if(myGM->getInput() == 27)
     {
+        myGM->setEarlyEnd();
         myGM->setExitTrue();
     }
     
@@ -96,6 +97,9 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
+    MacUILib_printf("           Welcome to the 2SH4 Snake Game!\n");
+    MacUILib_printf("WASD to move, ESC to exit the game, get all the food items!\n");
+
     objPos FoodPos = foodItem->getFoodPos();;
     objPos snakebody;
     for(int y = 0; y < myGM->getBoardSizeY(); y++)
@@ -131,17 +135,17 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
     MacUILib_printf("Score: %d\n", myPlayer->getScore());
-    MacUILib_printf("Player Head Position[x,y] = [%d,%d], %c",
-                    myPlayer->getPlayerPos()->getHeadElement().pos->x, myPlayer->getPlayerPos()->getHeadElement().pos->y, '*');
+    // MacUILib_printf("Player Head Position[x,y] = [%d,%d], %c", myPlayer->getPlayerPos()->getHeadElement().pos->x, 
+    //                 myPlayer->getPlayerPos()->getHeadElement().pos->y, '*');
 
-    if(myGM->getExitFlagStatus())
+    if(myGM->getEarlyEndStatus() == true)
     {
-        MacUILib_printf("\nYOU ARE A QUITTER!!! Game Exited\n");
+        MacUILib_printf("\nYOU ARE A QUITTER! Game Exited\n");
     }
 
     if (myGM->getLoseFlagStatus())
     {
-        MacUILib_printf("\nOH NO! Unfortunately you have LOST! Please play again.\n");
+        MacUILib_printf("\nOH NO! Unfortunately you have LOST! Please try again.\n");
     }
 
                     

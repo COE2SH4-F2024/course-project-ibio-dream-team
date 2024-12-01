@@ -6,7 +6,9 @@ GameMechs::GameMechs()
     input = 0;
     exitFlag = false;
     loseFlag = false;
+    earlyEnd = false;
     score = 0;
+    
 
     boardSizeX = 30;
     boardSizeY = 15; 
@@ -17,6 +19,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     input = 0;
     exitFlag = false;
     loseFlag = false;
+    earlyEnd = false;
     score = 0;
 
     boardSizeX = boardX;
@@ -95,22 +98,17 @@ void GameMechs::collectAsyncInput()
     if (MacUILib_hasChar())
     {
         input = MacUILib_getChar();
-        // if(input == 27)
-        //     exitFlag == 1;
-        // if(myGM->getInput() == 27)
-        // {
-        //     myGM->setExitTrue();
-        // }
     }
 
-
-    // if(input == ' ')
-    //     {
-    //         foodItem->generateFood(myGM,myPlayer->getPlayerPos());
-    //     }
-        // else if(myGM->getInput() == ' ')
-        // {
-        //     foodItem->generateFood(myGM, myPlayer->getPlayerPos());
-        // }
     
+}
+
+void GameMechs::setEarlyEnd()
+{
+    earlyEnd = true;
+}
+
+bool GameMechs::getEarlyEndStatus()
+{
+    return earlyEnd;
 }

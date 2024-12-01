@@ -14,6 +14,7 @@ class objPosArrayList
 
     public:
         objPosArrayList();
+        objPosArrayList(int bucketsize);
         ~objPosArrayList();
 
         int getSize() const;
@@ -25,6 +26,7 @@ class objPosArrayList
         objPos getHeadElement() const;
         objPos getTailElement() const;
         objPos getElement(int index) const;
+        objPos setElement(int index, objPos fooditem) const;
 };
 
 #endif

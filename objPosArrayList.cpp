@@ -1,5 +1,7 @@
 #include "objPosArrayList.h"
 #include <iostream>
+#include "MacUILib.h"
+
 
 using namespace std;
 
@@ -11,6 +13,13 @@ objPosArrayList::objPosArrayList()
     arrayCapacity = ARRAY_MAX_CAP;
     aList = new objPos[arrayCapacity];
     listSize = 0;
+}
+
+objPosArrayList::objPosArrayList(int bucketsize)
+{
+    arrayCapacity = ARRAY_MAX_CAP;
+    aList = new objPos[arrayCapacity];
+    listSize = bucketsize;
 }
 
 objPosArrayList::~objPosArrayList()
@@ -27,7 +36,7 @@ void objPosArrayList::insertHead(objPos thisPos)
 {
     if(listSize==arrayCapacity)
     {
-        cout << "Warning! Array list full, no insertion allowed!" << endl;
+        MacUILib_printf("Warning! Array list full, no insertion allowed!");
         return;
     }
 
@@ -57,7 +66,7 @@ void objPosArrayList::removeHead()
 
     if(listSize == 0)
     {
-        cout << "Warning! No elements in list to remove!"<< endl;
+        MacUILib_printf("Warning! No elements in list to remove!");
         return;
     }
 
@@ -73,7 +82,7 @@ void objPosArrayList::removeTail()
 {
     if(listSize == 0)
     {
-        cout << "Warning! List is empty, no elements to remove" << endl;
+        MacUILib_printf("Warning! List is empty, no elements to remove");
         return;
     }
 
@@ -110,6 +119,4 @@ objPos objPosArrayList::getElement(int index) const
     
     return aList[index];
 }
-// Paste your Tested implementation here.
-// Paste your Tested implementation here.
-// Paste your Tested implementation here.
+
