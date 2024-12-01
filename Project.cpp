@@ -130,7 +130,7 @@ void DrawScreen(void)
                                 printingHere = 1;
                             }
                         }
-                        
+
                         if(!printingHere){
                              MacUILib_printf(" ");
                         }

@@ -141,11 +141,28 @@ void Player::movePlayer()
     playerPosList->insertHead(newHead);
     bool foodConsumed = false;
 
-    for(int i = 0; i < foodBuckPos->getSize(); i++ )
+    for(int i = 0; i < foodBuckPos->getSize(); i++ )  //loop through each food item in food bucket.
     {
-        //playerPosList->insertHead(newHead);
+        //Check if each item is at the same position as the new inserted Head
         if(foodBuckPos->getElement(i).isPosEqual(&newHead))
         {
+            if(foodBuckPos->getElement(i).getSymbol() == '+')
+            {
+                for(int j = 0; j < 3; j++)
+                {
+                    playerPosList->insertTail(newHead);
+                }
+            }
+
+            // if(foodBuckPos->getElement(i).getSymbol() == '-')
+            // {
+            //     for(int j = 0; j < 10; j++)
+            //     {
+            //         mainGameMechsRef->incrementScore();
+            //     }
+            // }
+
+            //Regenerate the Food Bucket in 5 new random spots on the board after collision.
             mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
             foodConsumed = true;
             break;
