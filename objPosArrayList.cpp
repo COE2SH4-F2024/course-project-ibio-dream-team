@@ -1,16 +1,25 @@
 #include "objPosArrayList.h"
 #include <iostream>
+#include "MacUILib.h"
 
 using namespace std;
 
 // Check lecture contents on general purpose array list construction, 
 // and modify it to support objPos array list construction.
 
+//default constructor
 objPosArrayList::objPosArrayList()
 {
     arrayCapacity = ARRAY_MAX_CAP;
     aList = new objPos[arrayCapacity];
     listSize = 0;
+}
+
+objPosArrayList::objPosArrayList(int bucketsize)
+{
+    arrayCapacity = ARRAY_MAX_CAP;
+    aList = new objPos[arrayCapacity];
+    listSize = bucketsize;
 }
 
 objPosArrayList::~objPosArrayList()
@@ -27,7 +36,7 @@ void objPosArrayList::insertHead(objPos thisPos)
 {
     if(listSize==arrayCapacity)
     {
-        cout << "Warning! Array list full, no insertion allowed!" << endl;
+        MacUILib_printf("Warning! Array list full, no insertion allowed!\n");
         return;
     }
 
@@ -45,7 +54,7 @@ void objPosArrayList::insertTail(objPos thisPos)
 {
     if(listSize==arrayCapacity)
     {
-        cout << "Warning! Array list full, no insertion allowed!" << endl;
+        MacUILib_printf("Warning! Array list full, no insertion allowed!\n");
         return;
     }
     aList[listSize] = thisPos;
@@ -57,7 +66,7 @@ void objPosArrayList::removeHead()
 
     if(listSize == 0)
     {
-        cout << "Warning! No elements in list to remove!"<< endl;
+         MacUILib_printf("Warning! No elements in list to remove!\n");
         return;
     }
 
@@ -73,7 +82,7 @@ void objPosArrayList::removeTail()
 {
     if(listSize == 0)
     {
-        cout << "Warning! List is empty, no elements to remove" << endl;
+        MacUILib_printf("Warning! List is empty, no elements to remove \n");
         return;
     }
 
@@ -109,6 +118,14 @@ objPos objPosArrayList::getElement(int index) const
     }
     
     return aList[index];
+}
+
+objPos objPosArrayList::setElement(int index, objPos fooditem) const{
+    if(index > listSize || index < 0){
+        MacUILib_printf("Index out of Bounds!\n");
+    }else{
+        aList[index] = fooditem;
+    }
 }
 // Paste your Tested implementation here.
 // Paste your Tested implementation here.

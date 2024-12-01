@@ -6,6 +6,7 @@
 #include "objPos.h"
 #include "objPosArrayList.h"
 
+class Food;
 class Player
 {
     // Construct the remaining declaration from the project manual.
