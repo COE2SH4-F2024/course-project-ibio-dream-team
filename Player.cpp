@@ -9,7 +9,7 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     playerPosList = new objPosArrayList();
-    objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, 'o');
+    objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
     playerPosList->insertTail(playerpos);
     // more actions to be included
 }

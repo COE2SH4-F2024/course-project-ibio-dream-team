@@ -99,18 +99,17 @@ void DrawScreen(void)
                         }
                     }
 
-                    if (onSnakeBody = 0){ //meaning if this x and y pair is NOT on a location where snakebody sits
+                    if (onSnakeBody == 0){ //meaning if this x and y pair is NOT on a location where snakebody sits
                         if (x == FoodPos.pos->x && y == FoodPos.pos->y) {
                             MacUILib_printf("%c", FoodPos.symbol);
                         }
-                    }else
-                        MacUILib_printf(" ");
+                    }
                 }
         }
         MacUILib_printf("\n");
     }
     MacUILib_printf("Player Head Position[x,y] = [%d,%d], %c",
-                    myPlayer->getPlayerPos()->getHeadElement().pos->x, myPlayer->getPlayerPos()->getHeadElement().pos->y, 'o');
+                    myPlayer->getPlayerPos()->getHeadElement().pos->x, myPlayer->getPlayerPos()->getHeadElement().pos->y, '@');
 }
 
 void LoopDelay(void)
