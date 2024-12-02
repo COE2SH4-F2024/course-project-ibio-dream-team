@@ -21,19 +21,20 @@ class GameMechs
         int boardSizeX;
         int boardSizeY; 
 
-       // objPos food;
-
     public:
+        //Default constructor
         GameMechs();
+        //Additional Constructor
         GameMechs(int boardX, int boardY);
-        ~GameMechs(); // is this one needed at all? Why or why not?
+        //Unneeded destructor
+        ~GameMechs();
         
         bool getExitFlagStatus() const; 
         void setExitTrue();
         bool getLoseFlagStatus() const;
         void setLoseFlag();
 
-        char getInput(); //const;
+        char getInput();
         void setInput(char this_input);
         void clearInput();
 
@@ -43,7 +44,7 @@ class GameMechs
         int getScore() const;
         void incrementScore();
         
-        // More methods should be added here
+        //Additional methods:
         void collectAsyncInput();
         void setEarlyEnd();
         bool getEarlyEndStatus();
