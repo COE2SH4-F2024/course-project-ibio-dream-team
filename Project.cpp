@@ -10,6 +10,7 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
+//Player, mechanics, and food classes pointers
 Player *myPlayer;
 GameMechs *myGM;
 Food *foodItem;
@@ -47,10 +48,12 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myGM = new GameMechs(30,15);
+    //Allocating pointers on the heap
+    myGM = new GameMechs();
     foodItem = new Food();
     myPlayer = new Player(myGM,foodItem);
     
+    //Initalizing first set of food items
     foodItem->generateFood(myGM, myPlayer->getPlayerPos());
 }
 
@@ -65,8 +68,11 @@ void GetInput(void)
 }
 
 void RunLogic(void)
-{
+{   
+    //Uses input to decide direction to move in
     myPlayer->updatePlayerDir();
+
+    //Moves snake and detects collisions
     myPlayer->movePlayer();
     myGM->clearInput();
 }
@@ -79,20 +85,23 @@ void DrawScreen(void)
 
     objPosArrayList* foodBucket = foodItem->getFoodBucket();;
     objPos snakebody;
+
     for(int y = 0; y < myGM->getBoardSizeY(); y++)
     {
         for(int x = 0; x < myGM->getBoardSizeX(); x++)
-        {
-            if(y == 0 || y == myGM->getBoardSizeY() - 1)
+        {   
+            //Printing borders!
+            if( y == 0 || y == myGM->getBoardSizeY() - 1)
                 MacUILib_printf("=");
 
-            else if(x == 0 || x ==  myGM->getBoardSizeX() - 1)
+            else if( x == 0 || x ==  myGM->getBoardSizeX() - 1)
                 MacUILib_printf("|");
 
             else{
-                int printingHere = 0; //flag to check, changed name from onSnake to be used for foodBucket
+                int printingHere = 0; //flag to assess whether a space should be placed or not
+
                 for(int i = 0; i <  myPlayer->getPlayerPos()->getSize(); i++){
-                    snakebody.setObjPos(myPlayer->getPlayerPos()->getElement(i));//objPos snakebody = myPlayer->getPlayerPos()->getElement(i);
+                    snakebody.setObjPos(myPlayer->getPlayerPos()->getElement(i));
                     if(x == snakebody.pos->x && y == snakebody.pos->y){
                         MacUILib_printf("%c", snakebody.symbol);
                         printingHere = 1; //this location is part of the snake's body
@@ -103,6 +112,7 @@ void DrawScreen(void)
                     if (printingHere == 0){ //meaning if this x and y pair is NOT on a location where snakebody sits
                         for(int i = 0; i < foodBucket->getSize(); i++){
                             if (x == foodBucket->getElement(i).pos->x && y == foodBucket->getElement(i).pos->y) {
+                                //Print food items from the bucket if any of their locations match
                                 MacUILib_printf("%c", foodBucket->getElement(i).symbol);
                                 printingHere = 1;
                             }
@@ -122,7 +132,7 @@ void DrawScreen(void)
         MacUILib_printf("\nYOU ARE A QUITTER! Game Exited\n");
 
     if (myGM->getLoseFlagStatus())
-        MacUILib_printf("\nOH NO! Unfortunately you have LOST! Please try again.\n");
+        MacUILib_printf("\nYou Lost! Your Score is: %d\n", myPlayer->getScore());
                     
 }
 

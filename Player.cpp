@@ -149,7 +149,7 @@ void Player::movePlayer()
             if(foodBuckPos->getElement(i).getSymbol() == '-')
             {
                 if(playerPosList->getSize() > 1){
-                        playerPosList->removeTail();
+                        playerPosList->removeHead();
                         playerPosList->removeTail();
                 }
             }
@@ -165,7 +165,9 @@ void Player::movePlayer()
 
     if(!foodConsumed)
     {
-        playerPosList->removeTail();
+        if (playerPosList->getSize() > 1) {
+            playerPosList->removeTail();
+        }
     }
 
     

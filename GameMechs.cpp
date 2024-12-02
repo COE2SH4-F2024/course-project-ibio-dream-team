@@ -1,6 +1,7 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 
+//Default Constructor
 GameMechs::GameMechs()
 {
     input = 0;
@@ -43,7 +44,7 @@ bool GameMechs::getLoseFlagStatus() const
     return loseFlag;
 }
 
-char GameMechs::getInput() //const  // becuase the CONST is here you can not alter anything
+char GameMechs::getInput()
 {
     return input;
 }
@@ -88,8 +89,6 @@ void GameMechs::clearInput()
 {
     input = 0;
 }
-
-
 
 // More methods should be added here
 
