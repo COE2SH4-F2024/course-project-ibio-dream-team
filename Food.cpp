@@ -9,7 +9,7 @@ Food::Food(){
 }
 
 Food::~Food(){
-    delete[] foodBucket;
+    delete foodBucket;
 }
 
 void Food::generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff)

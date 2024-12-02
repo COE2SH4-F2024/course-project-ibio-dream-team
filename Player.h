@@ -10,21 +10,30 @@ class Food;
 class Player
 {
     public:
-        enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
+        //Enum represents the possible directions a player can move
+        enum Dir {UP, DOWN, LEFT, RIGHT, STOP}; 
 
+        //Constructor for the Player class. Takes  GameMechs and Food object references
         Player(GameMechs* thisGMRef, Food* thisFoodRef); 
+
+        //Destructor of Player Class
         ~Player();
 
-        objPosArrayList* getPlayerPos() const; //      
+        //Returns an objPosArrayList pointer to the players list of positions
+        objPosArrayList* getPlayerPos() const; 
+
+        //Updates player direction based on input/logic
         void updatePlayerDir();
+
+        //Moves player in current direction
         void movePlayer();
 
-        // More methods to be added here
+        //Returns current player score
         int getScore() const;
 
     private:
-        objPosArrayList* playerPosList; // Upgrade this in iteration 3.       
-        enum Dir myDir;
+        objPosArrayList* playerPosList; // holds the array list of player positions   
+        enum Dir myDir;                 // holds the current direction of player
 
         //reference to the Main Game Mechanisms and Food class
         GameMechs* mainGameMechsRef;
