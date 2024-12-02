@@ -82,6 +82,7 @@ void DrawScreen(void)
     MacUILib_clearScreen();
     MacUILib_printf("           Welcome to the 2SH4 Snake Game!\n");
     MacUILib_printf("WASD to move, ESC to exit the game, get all the food items!\n");
+    MacUILib_printf("Get the '-' to shorten your snake! Don't let it collide with itself\n");
 
     objPosArrayList* foodBucket = foodItem->getFoodBucket();;
     objPos snakebody;
@@ -131,9 +132,9 @@ void DrawScreen(void)
     if(myGM->getEarlyEndStatus() == true)
         MacUILib_printf("\nYOU ARE A QUITTER! Game Exited\n");
 
-    if (myGM->getLoseFlagStatus())
-        MacUILib_printf("\nYou Lost! Your Score is: %d\n", myPlayer->getScore());
-                    
+    if (myGM->getLoseFlagStatus()){
+        MacUILib_printf("\nYou Lost! Your Score is: %d\n", myPlayer->getScore());         
+    }
 }
 
 void LoopDelay(void)

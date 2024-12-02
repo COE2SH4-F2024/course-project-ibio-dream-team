@@ -124,7 +124,7 @@ void Player::movePlayer()
 
 
     //New head position
-    objPos newHead(currentHeadX,currentHeadY,'*');
+    objPos newHead(currentHeadX,currentHeadY,'s');
     objPos snakeEnd;
 
     for(int i = 1; i < playerPosList->getSize(); i++)
