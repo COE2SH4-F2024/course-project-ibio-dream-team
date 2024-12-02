@@ -126,7 +126,8 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("Score: %d\n", myPlayer->getScore());
+    MacUILib_printf("SCORE: %d\n", myPlayer->getScore());
+    MacUILib_printf("o = score +1\n- = score +1 and length -1");
 
     if(myGM->getEarlyEndStatus() == true)
         MacUILib_printf("\nYOU ARE A QUITTER! Game Exited\n");

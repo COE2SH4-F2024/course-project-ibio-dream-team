@@ -15,21 +15,18 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 
     objPos playerpos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*');
     playerPosList-> insertHead(playerpos) ;
-    // more actions to be included
-// 
+
 }
 
 
 Player::~Player()
 {
-    // delete any heap members here
     delete [] playerPosList;
-    // no keyword "new" in constructor therefore no destructor for now
 }
 
 objPosArrayList* Player::getPlayerPos() const
 {
-    return playerPosList;
+    return playerPosList; 
     // return the reference to the playerPos arrray list
 }
 
@@ -123,13 +120,16 @@ void Player::movePlayer()
     // PPA3 Finite State Machine logic
 
 
-    //New head position
+    //New head position at the updated x and y positions according to the most recent direction input
     objPos newHead(currentHeadX,currentHeadY,'*');
     objPos snakeEnd;
 
+    //loop through every element of the snake to check if the head is colliding with 
     for(int i = 1; i < playerPosList->getSize(); i++)
     {
         snakeEnd = playerPosList->getElement(i);
+
+        //check if the new head position is colliding with the an element of the snake.
         if(newHead.pos->x == snakeEnd.pos->x && newHead.pos->y == snakeEnd.pos->y)
         {
             mainGameMechsRef->setExitTrue();
@@ -138,21 +138,27 @@ void Player::movePlayer()
         }
     }
 
+    //insert a new head at the position the snake head is moving towards according the the last directional input (WASD)
     playerPosList->insertHead(newHead);
     bool foodConsumed = false;
 
-    for(int i = 0; i < foodBuckPos->getSize(); i++ )  //loop through each food item in food bucket.
+    //loop through each food item in food bucket.
+    for(int i = 0; i < foodBuckPos->getSize(); i++ )  
     {
         //Check if each item is at the same position as the new inserted Head
         if(foodBuckPos->getElement(i).isPosEqual(&newHead))
         {
-            if(foodBuckPos->getElement(i).getSymbol() == '-')
-            {
-                if(playerPosList->getSize() > 1){
-                        playerPosList->removeHead();
-                        playerPosList->removeTail();
+            if(foodBuckPos->getElement(i).getSymbol() == '+')
+                for(int i =0; i<2;i++)
+                {
+                    playerPosList->insertHead(newHead);
                 }
-            }
+            // {
+            //     if(playerPosList->getSize() > 1){
+            //             playerPosList->removeHead();
+            //             playerPosList->removeTail();
+            //     }
+            // }
 
             //Regenerate the Food Bucket in 5 new random spots on the board after collision.
             mainFoodRef->generateFood(mainGameMechsRef, playerPosList);
@@ -163,8 +169,10 @@ void Player::movePlayer()
     
     }
 
+    //check if there was no collision between the food and snake head 
     if(!foodConsumed)
     {
+        // if there was no collision and the snake head is larger than 1 then we take away the tail to cancel the new head insertion and keep the snake at the same size.
         if (playerPosList->getSize() > 1) {
             playerPosList->removeTail();
         }
@@ -173,8 +181,7 @@ void Player::movePlayer()
     
 }
 
-// More methods to be added
-
+//gets the current score from the game mechanics reference 
 int Player::getScore() const
 {
     return mainGameMechsRef->getScore();
