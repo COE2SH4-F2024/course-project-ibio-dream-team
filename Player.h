@@ -9,6 +9,11 @@
 class Food;
 class Player
 {
+    // Construct the remaining declaration from the project manual.
+
+    // Only some sample members are included here
+
+    // You will include more data members and member functions to complete your design.
     public:
         //Enum represents the possible directions a player can move
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP}; 
@@ -35,7 +40,7 @@ class Player
         objPosArrayList* playerPosList; // holds the array list of player positions   
         enum Dir myDir;                 // holds the current direction of player
 
-        //reference to the Main Game Mechanisms and Food class
+        // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
         Food* mainFoodRef;
 

@@ -16,11 +16,15 @@ class Food{
         objPosArrayList *foodBucket;
     
     public:
+        //Constructor
         Food();
+        //Destructor
         ~Food();
+        //Getter Functions for single food item and food bucket, respectively
         objPos const getFoodPos();
-        void generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff);
         objPosArrayList* getFoodBucket();
+        //Additional: Generating 5 food items method
+        void generateFood(GameMechs* gameMechsPtr, objPosArrayList* blockOff);
 };
 
 #endif
